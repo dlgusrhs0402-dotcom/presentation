@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GONenglish · 발표</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --dark:    #1a1614;
+  --gold:    #b8893d;
+  --gold-d:  #8b6f47;
+  --cream:   #faf7f0;
+  --white:   #ffffff;
+  --dim:     #6b6358;
+  --red:     #a01e23;
+  --green:   #5a7a4a;
+  --card:    #251f1c;
+  --line:    rgba(139,111,71,0.25);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV DOTS ── */
+.nav-dots {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold-d);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+.nav-dot.active { background: var(--gold); transform: scale(1.5); }
+
+/* ── SLIDE BASE ── */
+.slide {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── SLIDE 1 · TITLE ── */
+.s1 { background: var(--dark); flex-direction: column; text-align: center; }
+
+.s1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(184,137,61,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(160,30,35,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.s1-bar-l {
+  position: absolute; left: 0; top: 0;
+  width: 6px; height: 100%;
+  background: var(--gold);
+}
+.s1-bar-r {
+  position: absolute; right: 0; top: 0;
+  width: 6px; height: 100%;
+  background: var(--red);
+  opacity: 0.5;
+}
+
+.s1-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.s1-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: clamp(72px, 12vw, 128px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.s1-title span {
+  color: var(--gold);
+  font-weight: 300;
+  font-style: italic;
+}
+
+.s1-line {
+  width: 120px; height: 1px;
+  background: var(--gold-d);
+  margin: 32px auto;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.s1-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dim);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+/* ── SLIDE 2 · WHY ── */
+.s2 { background: var(--cream); color: var(--dark); gap: 60px; align-items: stretch; }
+
+.s2-left {
+  flex: 0 0 360px;
+  background: var(--dark);
+  padding: 52px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.s2-left::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0;
+  width: 4px; height: 100%;
+  background: var(--gold);
+}
+
+.s2-left-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.s2-left-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.s2-problems { display: flex; flex-direction: column; gap: 14px; }
+
+.s2-prob {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 13px; color: var(--dim); line-height: 1.5;
+}
+
+.s2-prob::before {
+  content: '—';
+  color: var(--red);
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.s2-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.s2-card {
+  background: var(--white);
+  border: 1px solid #e8e0d0;
+  padding: 24px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.s2-card:hover { transform: translateX(6px); }
+
+.s2-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px; height: 100%;
+  background: var(--gold);
+}
+
+.s2-icon { font-size: 28px; flex-shrink: 0; }
+
+.s2-card-title {
+  font-size: 16px; font-weight: 700;
+  color: var(--dark); margin-bottom: 6px;
+}
+
+.s2-card-desc {
+  font-size: 13px; color: var(--dim); line-height: 1.6;
+}
+
+/* ── SLIDE HEADER (재사용) ── */
+.slide-header {
+  position: absolute;
+  top: 48px; left: 72px;
+}
+
+.slide-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.slide-title {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.slide-divider {
+  position: absolute;
+  top: 130px; left: 72px;
+  right: 72px; height: 1px;
+  background: rgba(139,111,71,0.2);
+}
+
+/* ── SLIDE 3 · DATA MODEL ── */
+.s3 { background: var(--dark); flex-direction: column; align-items: stretch; padding-top: 160px; }
+
+.s3-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.data-box {
+  background: var(--card);
+  border: 1px solid rgba(139,111,71,0.3);
+  overflow: hidden;
+}
+
+.data-box-header {
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+  color: var(--dark);
+}
+
+.data-box-header.gold { background: var(--gold); }
+.data-box-header.red  { background: var(--red); color: var(--white); }
+.data-box-header.tawny { background: var(--gold-d); }
+
+.data-rows { padding: 8px 0; }
+
+.data-row {
+  display: grid;
+  grid-template-columns: 130px 100px 1fr;
+  padding: 9px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: center;
+}
+
+.data-row:last-child { border-bottom: none; }
+.data-row .field { color: var(--gold); font-weight: 500; }
+.data-row .type  { color: var(--green); }
+.data-row .desc  { color: var(--dim); }
+
+/* ── SLIDE 4 · ARCHITECTURE ── */
+.s4 { background: var(--cream); color: var(--dark); flex-direction: column; align-items: stretch; padding-top: 160px; }
+
+.s4 .slide-title { color: var(--dark); }
+.s4 .slide-divider { background: rgba(139,111,71,0.3); }
+
+.arch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.arch-layer {
+  background: var(--white);
+  border: 1px solid #e0d8cc;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.arch-layer:hover { transform: translateY(-4px); }
+
+.arch-layer-header {
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+
+.arch-layer-header.gold  { background: var(--gold); color: var(--dark); }
+.arch-layer-header.red   { background: var(--red); }
+.arch-layer-header.green { background: var(--green); }
+.arch-layer-header.tawny { background: var(--gold-d); }
+
+.arch-items { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+
+.arch-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: #4a3f38; line-height: 1.5;
+}
+
+.arch-item::before {
+  content: '▸';
+  color: var(--gold-d);
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 11px;
+}
+
+/* ── SLIDE 5 · FEATURES ── */
+.s5 { background: var(--dark); flex-direction: column; align-items: stretch; padding-top: 160px; }
+
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.feat-card {
+  background: var(--card);
+  border: 1px solid rgba(139,111,71,0.2);
+  padding: 24px 22px;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: default;
+}
+
+.feat-card:hover {
+  transform: translateY(-4px);
+}
+
+.feat-card:nth-child(1) { border-color: rgba(184,137,61,0.4); }
+.feat-card:nth-child(1):hover { border-color: var(--gold); }
+.feat-card:nth-child(2) { border-color: rgba(160,30,35,0.4); }
+.feat-card:nth-child(2):hover { border-color: var(--red); }
+.feat-card:nth-child(3) { border-color: rgba(90,122,74,0.4); }
+.feat-card:nth-child(3):hover { border-color: var(--green); }
+.feat-card:nth-child(4) { border-color: rgba(184,137,61,0.4); }
+.feat-card:nth-child(4):hover { border-color: var(--gold); }
+.feat-card:nth-child(5) { border-color: rgba(160,30,35,0.4); }
+.feat-card:nth-child(5):hover { border-color: var(--red); }
+.feat-card:nth-child(6) { border-color: rgba(90,122,74,0.4); }
+.feat-card:nth-child(6):hover { border-color: var(--green); }
+
+.feat-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+.feat-card:nth-child(1) .feat-num,
+.feat-card:nth-child(4) .feat-num { color: var(--gold); }
+.feat-card:nth-child(2) .feat-num,
+.feat-card:nth-child(5) .feat-num { color: var(--red); }
+.feat-card:nth-child(3) .feat-num,
+.feat-card:nth-child(6) .feat-num { color: var(--green); }
+
+.feat-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.feat-desc { font-size: 12px; color: var(--dim); line-height: 1.6; }
+
+/* ── SLIDE 6 · OUTRO ── */
+.s6 {
+  background: var(--dark);
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.s6::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--gold);
+}
+.s6::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--gold);
+}
+
+.s6-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(184,137,61,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.s6-inner {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 60px;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.s6-divider { background: rgba(139,111,71,0.3); height: 280px; }
+
+.s6-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.plan-list { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+
+.plan-item {
+  background: var(--card);
+  border: 1px solid rgba(139,111,71,0.25);
+  padding: 14px 18px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.plan-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.s6-url {
+  background: var(--card);
+  border: 1px solid rgba(139,111,71,0.3);
+  padding: 14px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+}
+
+.s6-quote {
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.s6-thanks {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── KEYBOARD HINT ── */
+.key-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+  text-transform: uppercase;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* ── PROGRESS BAR ── */
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+  z-index: 200;
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<div class="key-hint">← → 키로 이동 · Space 재생</div>
+
+<!-- ════ SLIDE 1 · TITLE ════ -->
+<section class="slide s1" data-slide="0">
+  <div class="s1-bar-l"></div>
+  <div class="s1-bar-r"></div>
+  <div class="s1-sub">Cinema Lines · 영화로 배우는 영어</div>
+  <div class="s1-title">GON<br><span>english</span></div>
+  <div class="s1-line"></div>
+  <div class="s1-meta">Web App · 2025 · dlgusrhs0402</div>
+</section>
+
+<!-- ════ SLIDE 2 · WHY ════ -->
+<section class="slide s2" data-slide="1">
+  <div class="s2-left">
+    <div class="s2-left-label">왜 만들었나?</div>
+    <div class="s2-left-title">교재 영어의<br>한계</div>
+    <div class="s2-problems">
+      <div class="s2-prob">실생활 표현과 거리가 먼 예문</div>
+      <div class="s2-prob">반복 암기 위주의 학습법</div>
+      <div class="s2-prob">몰입감 없는 콘텐츠</div>
+    </div>
+  </div>
+  <div class="s2-right">
+    <div class="s2-card">
+      <div class="s2-icon">🎬</div>
+      <div>
+        <div class="s2-card-title">실제 영화 대사</div>
+        <div class="s2-card-desc">원어민이 실제로 쓰는 자연스러운 표현 학습</div>
+      </div>
+    </div>
+    <div class="s2-card">
+      <div class="s2-icon">🔊</div>
+      <div>
+        <div class="s2-card-title">TTS 음성 재생</div>
+        <div class="s2-card-desc">듣기 → 따라 말하기 반복 훈련 가능</div>
+      </div>
+    </div>
+    <div class="s2-card">
+      <div class="s2-icon">🌏</div>
+      <div>
+        <div class="s2-card-title">발음 & 해석</div>
+        <div class="s2-card-desc">한국어 발음 표기와 번역으로 즉시 이해</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SLIDE 3 · DATA MODEL ════ -->
+<section class="slide s3" data-slide="2">
+  <div class="slide-header">
+    <div class="slide-label">Data Model</div>
+    <div class="slide-title">주요 데이터 모델</div>
+  </div>
+  <div class="slide-divider"></div>
+
+  <div class="s3-grid">
+    <!-- Quote Object -->
+    <div class="data-box">
+      <div class="data-box-header gold">Quote Object</div>
+      <div class="data-rows">
+        <div class="data-row"><span class="field">text</span><span class="type">string</span><span class="desc">영어 원문 대사</span></div>
+        <div class="data-row"><span class="field">character</span><span class="type">string</span><span class="desc">캐릭터 이름</span></div>
+        <div class="data-row"><span class="field">movie</span><span class="type">string</span><span class="desc">영화 제목 (연도)</span></div>
+        <div class="data-row"><span class="field">translation</span><span class="type">string</span><span class="desc">한국어 번역</span></div>
+        <div class="data-row"><span class="field">pronunciation</span><span class="type">string</span><span class="desc">한국어 발음 표기</span></div>
+        <div class="data-row"><span class="field">img</span><span class="type">string?</span><span class="desc">포스터 이미지 URL</span></div>
+      </div>
+    </div>
+
+    <!-- App State -->
+    <div class="data-box">
+      <div class="data-box-header red">App State</div>
+      <div class="data-rows">
+        <div class="data-row"><span class="field">shuffled</span><span class="type">Quote[]</span><span class="desc">무작위 정렬된 대사 배열</span></div>
+        <div class="data-row"><span class="field">currentIdx</span><span class="type">number</span><span class="desc">현재 카드 인덱스</span></div>
+        <div class="data-row"><span class="field">revealed</span><span class="type">boolean</span><span class="desc">대사 공개 여부</span></div>
+      </div>
+      <div class="data-box-header tawny" style="margin-top:2px">TTS Config</div>
+      <div class="data-rows">
+        <div class="data-row"><span class="field">lang</span><span class="type">"en-US"</span><span class="desc">언어 설정</span></div>
+        <div class="data-row"><span class="field">rate</span><span class="type">0.9 / 0.55</span><span class="desc">일반 / 천천히 속도</span></div>
+        <div class="data-row"><span class="field">voice</span><span class="type">SpeechSynth</span><span class="desc">Google 영어 음성 우선</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SLIDE 4 · ARCHITECTURE ════ -->
+<section class="slide s4" data-slide="3">
+  <div class="slide-header">
+    <div class="slide-label" style="color:var(--gold-d)">Architecture</div>
+    <div class="slide-title" style="color:var(--dark)">앱 아키텍처</div>
+  </div>
+  <div class="slide-divider"></div>
+
+  <div class="arch-grid">
+    <div class="arch-layer">
+      <div class="arch-layer-header gold">UI Layer</div>
+      <div class="arch-items">
+        <div class="arch-item">HTML/CSS · 씬 카드, 버튼, 메타 정보</div>
+        <div class="arch-item">Google Fonts (Plus Jakarta Sans, DM Mono, Inter)</div>
+        <div class="arch-item">CSS 애니메이션 · fadeUp, pulse, fadeIn</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-header red">Logic Layer</div>
+      <div class="arch-items">
+        <div class="arch-item">Vanilla JS · 상태 관리, 렌더링, 이벤트 핸들링</div>
+        <div class="arch-item">Fisher-Yates Shuffle · 무작위 대사 정렬</div>
+        <div class="arch-item">DOMContentLoaded 이후 초기화</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-header green">Data Layer</div>
+      <div class="arch-items">
+        <div class="arch-item">quotes[] 배열 · 40+ 명대사 하드코딩</div>
+        <div class="arch-item">Wikipedia 포스터 이미지 URL</div>
+        <div class="arch-item">별도 DB/서버 없는 완전 정적 구조</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-header tawny">Browser API</div>
+      <div class="arch-items">
+        <div class="arch-item">Web Speech API · SpeechSynthesis TTS</div>
+        <div class="arch-item">Keyboard Event · Space키로 즉시 재생</div>
+        <div class="arch-item">GitHub Pages · 무료 정적 호스팅</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SLIDE 5 · FEATURES ════ -->
+<section class="slide s5" data-slide="4">
+  <div class="slide-header">
+    <div class="slide-label">Demo</div>
+    <div class="slide-title">주요 기능</div>
+  </div>
+  <div class="slide-divider"></div>
+
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-num">01</div>
+      <div class="feat-title">자동 재생</div>
+      <div class="feat-desc">씬 진입 시 TTS가 자동으로 대사를 읽어줌</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">02</div>
+      <div class="feat-title">다시 듣기 / 천천히</div>
+      <div class="feat-desc">0.9배속 / 0.55배속 반복 청취 가능</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">03</div>
+      <div class="feat-title">한국어 발음</div>
+      <div class="feat-desc">한글로 영어 발음 표기해 따라 말하기 쉽게</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">04</div>
+      <div class="feat-title">한국어 해석</div>
+      <div class="feat-desc">버튼 클릭 시 번역 토글</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">05</div>
+      <div class="feat-title">무한 셔플</div>
+      <div class="feat-desc">매번 랜덤으로 섞인 40+ 명대사</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">06</div>
+      <div class="feat-title">키보드 단축키</div>
+      <div class="feat-desc">Space 키로 바로 재생</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SLIDE 6 · OUTRO ════ -->
+<section class="slide s6" data-slide="5">
+  <div class="s6-glow"></div>
+  <div class="s6-inner">
+    <div>
+      <div class="s6-section-label">앞으로의 계획</div>
+      <div class="plan-list">
+        <div class="plan-item"><span class="plan-num">01</span> 즐겨찾기 기능 추가</div>
+        <div class="plan-item"><span class="plan-num">02</span> 학습 진행률 저장</div>
+        <div class="plan-item"><span class="plan-num">03</span> 장르별 필터링</div>
+        <div class="plan-item"><span class="plan-num">04</span> 받아쓰기 모드 추가</div>
+      </div>
+    </div>
+
+    <div class="s6-divider"></div>
+
+    <div>
+      <div class="s6-section-label">바로 접속하기</div>
+      <div class="s6-url">dlgusrhs0402-dotcom.github.io<br>/Gonenglish-app/</div>
+      <div class="s6-quote">"영화 대사 한 줄이<br>영어 실력을 바꾼다"</div>
+      <div class="s6-thanks">감사합니다</div>
+    </div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const navDots = document.getElementById('navDots');
+const progress = document.getElementById('progress');
+let current = 0;
+
+// 네비게이션 도트 생성
+slides.forEach((_, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  btn.onclick = () => goTo(i);
+  navDots.appendChild(btn);
+});
+
+function goTo(idx) {
+  if (idx < 0 || idx >= slides.length) return;
+  current = idx;
+  slides[current].scrollIntoView({ behavior: 'smooth' });
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+}
+
+// 키보드
+document.addEventListener('keydown', e => {
+  if (e.code === 'ArrowRight' || e.code === 'ArrowDown') goTo(current + 1);
+  if (e.code === 'ArrowLeft'  || e.code === 'ArrowUp')   goTo(current - 1);
+});
+
+// 스크롤 감지
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = +entry.target.dataset.slide;
+      current = idx;
+      document.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+      progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(s => observer.observe(s));
+
+// 초기 progress
+progress.style.width = (1 / slides.length * 100) + '%';
+</script>
+</body>
+</html>
